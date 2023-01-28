@@ -1,11 +1,14 @@
+import React, { useState } from "react";
+import axios from "axios";
+
 interface PokemonData {
   name: string;
   types: string[];
   id: number;
 }
 
-const Main = () => {
-  return <p>Hola</p>;
+const PoKemonGraph = () => {
+  return <div>Hola</div>;
 };
 
-export default Main;
+export default PoKemonGraph;
