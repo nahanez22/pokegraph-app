@@ -1,20 +1,25 @@
 {
   "dependencies": {
+    "3d-force-graph": "^1.70.19",
     "axios": "^1.2.5",
     "next": "^13.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-force-graph": "^1.41.18"
+    
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+    
   },
   "devDependencies": {
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
-    "typescript": "4.9.4"
+    "typescript": "4.9.4",
+    "type": "module"
+    
   }
 }
