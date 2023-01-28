@@ -7,7 +7,9 @@ interface PokemonData {
   id: number;
 }
 
-const PoKemonGraph = () => {
+const PoKemonGraph: React.FC = () => {
+  const [pokemons, setPokemons] = useState<PokemonData[]>([]);
+
   return <div>Hola</div>;
 };
 
