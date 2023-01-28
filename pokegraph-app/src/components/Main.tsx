@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Graph from "./Graph";
 
 interface PokemonData {
   name: string;
@@ -15,20 +16,14 @@ const PoKemonGraph: React.FC = () => {
       const response = await axios.get(
         "https://pokeapi.co/api/v2/pokemon?limit=151"
       );
-      setPokemons(
-        response.data.results.map((pokemon: any) => ({
-          name: pokemon.name,
-          types: pokemon.types.map((type: any) => type.type.name),
-          id: pokemon.id,
-        }))
-      );
     }
     fetchData();
   }, []);
 
   return (
     <div>
-      {pokemons.length > 0 ? <Graph pokemons={pokemons} /> : <p>Loading...</p>}
+      <Graph />
+      <p>Loading...</p>
     </div>
   );
 };
