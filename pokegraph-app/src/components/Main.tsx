@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Graph from "./Graph";
+
+import dynamic from "next/dynamic";
+
+const DynamicGraph = dynamic(() => import("./Graph"), {
+  ssr: false,
+});
 
 export interface PokemonData {
   name: string;
   url: string;
+  types?: string[];
 }
 
 interface PokemonDataAxios {
@@ -23,15 +29,31 @@ const PoKemonGraph: React.FC = () => {
         "https://pokeapi.co/api/v2/pokemon?limit=151"
       );
 
-      setPokemons(response.data.results);
+      const pokemonsData = await Promise.all(
+        response.data.results.map(async (pokemon: PokemonData) => {
+          const typesResponse = await axios.get(pokemon.url);
+          return {
+            name: typesResponse.data.name,
+            types: typesResponse.data.types.map(
+              (type: { slot: number; type: { name: string } }) => type.type.name
+            ),
+            url: pokemon.url,
+          };
+        })
+      );
+
+      setPokemons(pokemonsData);
     }
     fetchData();
   }, []);
 
   return (
     <div>
-      <Graph pokemons={pokemons} />
-      <p>Loading...</p>
+      {pokemons.length ? (
+        <DynamicGraph pokemons={[...pokemons, { name: "pokemons", url: "" }]} />
+      ) : (
+        ""
+      )}
     </div>
   );
 };
